@@ -1,9 +1,9 @@
-package cookingrecipe;
+package user;
 
 public class Main {
 
     public static void main(String[] args) {
-        CookView cv = new CookView();
+        UserView cv = new UserView();
         cv.start();
     }
 }

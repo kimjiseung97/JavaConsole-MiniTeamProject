@@ -1,4 +1,4 @@
-package cookingrecipe;
+package user;
 
 public class Repository {
     private static UserData userData;

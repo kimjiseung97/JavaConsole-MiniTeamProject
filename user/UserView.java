@@ -1,8 +1,8 @@
-package cookingrecipe;
+package user;
 
 import java.util.*;
 
-public class CookView {
+public class UserView {
     static Scanner sc = new Scanner(System.in);
     private static Repository rt;
     private static Map<String, UserData> memberList = new HashMap<>();
@@ -31,7 +31,7 @@ public class CookView {
                     createAccount();
                     break;
                 case "3":   // 종료
-                    System.out.println("종료되었습니다.");
+                    System.out.println("@@@@ 종료되었습니다. @@@@");
                     System.exit(0);
                     break;
             }
@@ -49,14 +49,14 @@ public class CookView {
                 System.out.println("비밀번호 : ");
                 String inputPwd = sc.nextLine();
                 if (userData.getUserPassword().equals(inputPwd)){
-                    System.out.println("로그인 성공!");
+                    System.out.println("@@@@ 로그인 성공! @@@@");
 
                     break;
                 }else {
-                    System.out.println("비밀번호가 틀립니다.");
+                    System.out.println("@@@@ 비밀번호가 틀립니다. @@@@");
                 }
             }else {
-                System.out.println("아이디가 존재하지 않습니다.");
+                System.out.println("@@@@ 아이디가 존재하지 않습니다. @@@@");
             }
             System.out.println(memberList);
 //            System.out.println(data);
@@ -88,9 +88,9 @@ public class CookView {
             userData = new UserData(makeId, makePwd, makeName);
             rt.register(userData);  // 유저를 등록하는 기능 (View에 static UserData userData를 만들어서 쓸모없는 기능)
             memberList.put(makeId,userData);    // makeId를 중복 안되게 해줌 makeId가 같으면 userData 값에 안넣어줌
-
+            System.out.println("@@@@ "+userData.getUserName()+"님 회원가입 성공! @@@@");
         }else {
-            System.out.println("아이디가 존재합니다.");
+            System.out.println("@@@@ 아이디가 존재합니다. @@@@");
         }
 
 
