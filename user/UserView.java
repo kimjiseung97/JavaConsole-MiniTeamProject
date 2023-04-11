@@ -1,5 +1,7 @@
 package user;
 
+import myrecipe.Foodview;
+
 import java.util.*;
 
 public class UserView {
@@ -40,6 +42,7 @@ public class UserView {
     }
 
     private static void UserLogin() {
+        Foodview foodview = new Foodview();
         // 로그인
         while (true){
             System.out.println("아이디 : ");
@@ -50,7 +53,7 @@ public class UserView {
                 String inputPwd = sc.nextLine();
                 if (userData.getUserPassword().equals(inputPwd)){
                     System.out.println("@@@@ 로그인 성공! @@@@");
-
+                    foodview.selectmenu();
                     break;
                 }else {
                     System.out.println("@@@@ 비밀번호가 틀립니다. @@@@");
