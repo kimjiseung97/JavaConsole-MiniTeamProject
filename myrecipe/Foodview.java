@@ -17,12 +17,6 @@ public class Foodview {
       showmenu();
     }
 
-    public static Food kr,jp,ch,we;
-
-
-    static {
-
-    }
 
     private void showmenu() {
         while(true){
@@ -43,11 +37,25 @@ public class Foodview {
                     selectfoodnation();
                     break;
                 case "2":
-                    foodRepository.showfoodlist();
+                    //전체음식 보여주는 함수
+                    if(!foodRepository.isempy()) {
+                        foodRepository.showfoodlist();
+                    }else{
+                        System.out.println("레시피목록이 없습니다!");
+                    }
                     break;
                 case "3":
+                    //재료가 포함된 음식찾기
+                    String findmaterial = input("찾고자하는 음식에 들어가는 재료를 입력해주세요 : ");
+                    foodRepository.findbymaterial(findmaterial);
                     break;
                 case "4":
+                    String findCategory = input("찾고자하는 음식 카테고리를 입력해주세요 : [한식 : kr/ 중식 : ch/ 일식 : jp/ 양식 : we]");
+                    if(findCategory.equals("kr")||findCategory.equals("ch")||findCategory.equals("jp")||findCategory.equals("we")){
+                        foodRepository.findbyCategory(findCategory);
+                    }else{
+                        System.out.println("올바른 카테고리를 입력해주세요!");
+                    }
                     break;
                 case "5":
                     break;
@@ -103,6 +111,7 @@ public class Foodview {
 //        System.out.println(material);
 //        System.out.println(recipe);
         Food jp = new Japanfood();
+        jp.setCategory("jp");
         jp.setFoodname(foodname);
         jp.setMaterial(material);
         jp.setRecipe(recipe);
@@ -128,6 +137,7 @@ public class Foodview {
 //        System.out.println(material);
 //        System.out.println(recipe);
         Food we = new Westernfood();
+        we.setCategory("we");
         we.setFoodname(foodname);
         we.setMaterial(material);
         we.setRecipe(recipe);
@@ -153,6 +163,7 @@ public class Foodview {
 //        System.out.println(material);
 //        System.out.println(recipe);
         Food ch = new Chinafood();
+        ch.setCategory("ch");
         ch.setFoodname(foodname);
         ch.setMaterial(material);
         ch.setRecipe(recipe);
@@ -178,6 +189,7 @@ public class Foodview {
 //        System.out.println(material);
 //        System.out.println(recipe);
         Food kr = new Koreafood();
+        kr.setCategory("kr");
         kr.setFoodname(foodname);
         kr.setMaterial(material);
         kr.setRecipe(recipe);

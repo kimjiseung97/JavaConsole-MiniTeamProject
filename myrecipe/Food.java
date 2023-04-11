@@ -10,6 +10,8 @@ public class Food {
 
     public String recipe;
 
+    public String Category;
+
     public Food() {
     }
 
@@ -41,5 +43,9 @@ public class Food {
 
     public void setRecipe(String recipe) {
         this.recipe = recipe;
+    }
+
+    public void setCategory(String category) {
+        this.Category = category;
     }
 }

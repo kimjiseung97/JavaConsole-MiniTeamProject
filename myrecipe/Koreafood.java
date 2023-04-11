@@ -35,8 +35,14 @@ public class Koreafood extends Food {
 //        super.recipe = recipe;
 //    }
 
+
     @Override
     public String toString() {
-        return "한식[" + "음식이름='" + foodname + '\'' + ", 재료=" + material + ", 조리법='" + recipe + '\'' + ']'+"\n";
+        return "한식 : [" +
+                "음식이름='" + foodname + '\'' +
+                ", 재료=" + material +
+                ", 조리법='" + recipe + '\'' +
+                ", 분류코드 ='" + Category + '\'' +
+                ']'+"\n";
     }
 }

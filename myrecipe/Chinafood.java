@@ -9,10 +9,11 @@ public class Chinafood extends Food {
 
     @Override
     public String toString() {
-        return "중식[" +
+        return "중식 : [" +
                 "음식이름='" + foodname + '\'' +
                 ", 재료=" + material +
                 ", 조리법='" + recipe + '\'' +
+                ", 분류코드='" + Category + '\'' +
                 ']'+"\n";
     }
 }

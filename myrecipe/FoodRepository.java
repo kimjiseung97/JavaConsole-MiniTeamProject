@@ -38,6 +38,31 @@ public class FoodRepository {
 
     //레시피 목록이 비었는지 확인하는 함수
     public boolean isempy() {
-        return FoodRecipeList!=null;
+        if(FoodRecipeList.size()==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //재료이름으로 음식을 찾는 함수
+    public void findbymaterial(String findmaterial) {
+        for (Food food : FoodRecipeList) {
+            if (food.material.contains(findmaterial)){
+                System.out.println(food);
+            }else{
+                System.out.println(findmaterial+"이 들어가는 음식을 찾지못했습니다.");
+            }
+        }
+    }
+
+    public void findbyCategory(String findCategory) {
+        for (Food food : FoodRecipeList) {
+            if(food.Category.contains(findCategory)){
+                System.out.println(food);
+            }else{
+                System.out.println(findCategory+"카테고리 음식을 찾지 못했습니다.");
+            }
+        }
     }
 }
