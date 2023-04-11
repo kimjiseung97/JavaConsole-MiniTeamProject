@@ -48,6 +48,7 @@ public class CookView {
                 String inputPwd = sc.nextLine();
                 if (userData.getUserPassword().equals(inputPwd)){
                     System.out.println("로그인 성공!");
+
                     break;
                 }else {
                     System.out.println("비밀번호가 틀립니다.");
@@ -55,7 +56,7 @@ public class CookView {
             }else {
                 System.out.println("아이디가 존재하지 않습니다.");
             }
-//            System.out.println(memberList);
+            System.out.println(memberList);
 //            System.out.println(data);
             break;
         }
