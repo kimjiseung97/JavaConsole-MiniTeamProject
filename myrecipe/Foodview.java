@@ -31,44 +31,49 @@ public class Foodview {
             System.out.println("8 종료하기");
             System.out.println("-------------------------------------------");
             String menuNum = input(">>");
-
-            switch(menuNum){
-                case "1":
-                    selectfoodnation();
-                    break;
-                case "2":
-                    //전체음식 보여주는 함수
-                    if(!foodRepository.isempy()) {
-                        foodRepository.showfoodlist();
-                    }else{
-                        System.out.println("레시피목록이 없습니다!");
-                    }
-                    break;
-                case "3":
-                    //재료가 포함된 음식찾기
-                    String findmaterial = input("찾고자하는 음식에 들어가는 재료를 입력해주세요 : ");
-                    foodRepository.findbymaterial(findmaterial);
-                    break;
-                case "4":
-                    String findCategory = input("찾고자하는 음식 카테고리를 입력해주세요 : [한식 : kr/ 중식 : ch/ 일식 : jp/ 양식 : we]");
-                    if(findCategory.equals("kr")||findCategory.equals("ch")||findCategory.equals("jp")||findCategory.equals("we")){
-                        foodRepository.findbyCategory(findCategory);
-                    }else{
-                        System.out.println("올바른 카테고리를 입력해주세요!");
-                    }
-                    break;
-                case "5":
-                    break;
-                case "6":
-                    break;
-                case "7":
-                    break;
-                case"8":
-                    System.out.println("종료합니다!");
-                    System.exit(0);
-                default:
-                    System.out.println("메뉴를 똑바로 입력해주세요!");
+            while (true){
+                switch(menuNum){
+                    case "1":
+                        selectfoodnation();
+                        break;
+                    case "2":
+                        //전체음식 보여주는 함수
+                        if(!foodRepository.isempy()) {
+                            foodRepository.showfoodlist();
+                        }else{
+                            System.out.println("레시피목록이 없습니다!");
+                        }
+                        break;
+                    case "3":
+                        //재료가 포함된 음식찾기
+                        String findmaterial = input("찾고자하는 음식에 들어가는 재료를 입력해주세요 : ");
+                        foodRepository.findbymaterial(findmaterial);
+                        break;
+                    case "4":
+                        String findCategory = input("찾고자하는 음식 카테고리를 입력해주세요 : [한식 : kr/ 중식 : ch/ 일식 : jp/ 양식 : we]");
+                        if(findCategory.equals("kr")||findCategory.equals("ch")||findCategory.equals("jp")||findCategory.equals("we")){
+                            foodRepository.findbyCategory(findCategory);
+                        }else{
+                            System.out.println("올바른 카테고리를 입력해주세요!");
+                        }
+                        break;
+                    case "5":
+                        break;
+                    case "6":
+                        String foodname = input("삭제하고자하는 레시피를 입력해주세요 : ");
+                        foodRepository.removeRecipe(foodname);
+                        break;
+                    case "7":
+                        break;
+                    case"8":
+                        System.out.println("종료합니다!");
+                        System.exit(0);
+                    default:
+                        System.out.println("메뉴를 똑바로 입력해주세요!");
+                }
+                break;
             }
+
         }
     }
 
