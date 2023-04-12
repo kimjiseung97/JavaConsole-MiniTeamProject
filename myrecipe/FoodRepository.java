@@ -2,7 +2,8 @@ package myrecipe;
 
 import java.util.ArrayList;
 
-public class FoodRepository {
+
+public class FoodRepository extends Food {
 
     public static ArrayList<Food> FoodRecipeList;
 
@@ -26,11 +27,11 @@ public class FoodRepository {
     }
 
     //각각의 food객체 추가하는 함수
-    public void addnewfoodrecipe(Food foodrecipe){
+    public void addnewfoodrecipe(Food foodrecipe) {
         FoodRecipeList.add(foodrecipe);
     }
 
-    public void showfoodlist(){
+    public void showfoodlist() {
         for (Food food : FoodRecipeList) {
             System.out.println(food);
         }
@@ -38,9 +39,9 @@ public class FoodRepository {
 
     //레시피 목록이 비었는지 확인하는 함수
     public boolean isempy() {
-        if(FoodRecipeList.size()==0){
+        if (FoodRecipeList.size() == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -48,21 +49,56 @@ public class FoodRepository {
     //재료이름으로 음식을 찾는 함수
     public void findbymaterial(String findmaterial) {
         for (Food food : FoodRecipeList) {
-            if (food.material.contains(findmaterial)){
+            if (food.material.contains(findmaterial)) {
                 System.out.println(food);
-            }else{
-                System.out.println(findmaterial+"이 들어가는 음식을 찾지못했습니다.");
+            } else {
+                System.out.println(findmaterial + "이 들어가는 음식을 찾지못했습니다.");
             }
         }
     }
 
     public void findbyCategory(String findCategory) {
         for (Food food : FoodRecipeList) {
-            if(food.Category.contains(findCategory)){
+            if (food.Category.contains(findCategory)) {
                 System.out.println(food);
-            }else{
-                System.out.println(findCategory+"카테고리 음식을 찾지 못했습니다.");
+            } else {
+                System.out.println(findCategory + "카테고리 음식을 찾지 못했습니다.");
             }
         }
     }
+
+    private static int gettargetIndexnum(String foodname) {
+        for (Food data : FoodRecipeList) {
+            if (data.getFoodname().equals(foodname)) {
+                return FoodRecipeList.indexOf(data);
+            }
+        }
+        return -1;
+    }
+
+    // 레시피를 삭제하는 함수
+    public static void removeRecipe(String removeFoodname) {
+
+
+
+
+
+
+
+
+
+
+        int num = gettargetIndexnum(removeFoodname);
+        for (Food data : FoodRecipeList) {
+            if (data.getFoodname().equals(removeFoodname)) {
+                FoodRecipeList.remove(num);
+                System.out.println(removeFoodname + "삭제 되었습니다.");
+                return;
+            }
+        }
+        System.out.println(removeFoodname + "찾지 못하였습니다.");
+    }
+
+
 }
+
