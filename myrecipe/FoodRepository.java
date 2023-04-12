@@ -78,6 +78,16 @@ public class FoodRepository extends Food {
 
     // 레시피를 삭제하는 함수
     public static void removeRecipe(String removeFoodname) {
+
+
+
+
+
+
+
+
+
+
         int num = gettargetIndexnum(removeFoodname);
         for (Food data : FoodRecipeList) {
             if (data.getFoodname().equals(removeFoodname)) {
@@ -89,11 +99,6 @@ public class FoodRepository extends Food {
         System.out.println(removeFoodname + "찾지 못하였습니다.");
     }
 
-    public void modifyRecipe(String modifyFoodname) {
-
-
-
-    }
 
 }
 

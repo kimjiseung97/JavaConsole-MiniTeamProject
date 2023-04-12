@@ -65,7 +65,7 @@ public class Foodview {
                         break;
                     case "7":
                         String modifyFoodname = input("수정하고자하는 레시피를 입력해주세요 : ");
-                        foodRepository.modifyRecipe(modifyFoodname);
+//                        foodRepository.modifyRecipe(modifyFoodname);
                         break;
                     case"8":
                         System.out.println("종료합니다!");
