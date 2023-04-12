@@ -68,8 +68,12 @@ public class Foodview {
                 case "5":
                     break;
                 case "6":
+                    String removefoodname = input("삭제하고자 하는 레시피의 이름을 입력해주세요");
+                    foodRepository.RemoveRecipe(removefoodname);
                     break;
                 case "7":
+                    String changefoodname = input("수정하고자 하는 레시피의 이름을 입력해주세요");
+                    foodRepository.ChangeRecipe(changefoodname);
                     break;
                 case"8":
                     System.out.println("종료합니다!");
