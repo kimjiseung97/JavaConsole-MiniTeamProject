@@ -15,9 +15,7 @@ public class UserView {
         rt = new Repository();
         memberList = new ArrayList<>(
                 List.of(
-                        new UserData("abcd","1234","홍길동"),
-                        new UserData("bbbb","1234","이순신"),
-                        new UserData("cccc","1234","강감찬")
+                        new UserData("admin","7777","admin")
                 )
         );
     }
