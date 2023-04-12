@@ -4,9 +4,7 @@ import java.util.Set;
 
 public class Food {
 
-    public String username;
     public String foodname;
-
     public Set<String> material;
 
     public String recipe;

@@ -123,6 +123,7 @@ public class Foodview {
         jp.setFoodname(foodname);
         jp.setMaterial(material);
         jp.setRecipe(recipe);
+        jp.setWriterName(uv.getLoginUserName());
 
         foodRepository.addnewfoodrecipe(jp);
         System.out.println("메뉴추가가 완료되었습니다!");
@@ -149,6 +150,7 @@ public class Foodview {
         we.setFoodname(foodname);
         we.setMaterial(material);
         we.setRecipe(recipe);
+        we.setWriterName(uv.getLoginUserName());
 
         foodRepository.addnewfoodrecipe(we);
         System.out.println("메뉴추가가 완료되었습니다!");
@@ -175,7 +177,7 @@ public class Foodview {
         ch.setFoodname(foodname);
         ch.setMaterial(material);
         ch.setRecipe(recipe);
-        ch.setWriterName(userView.getLoginUserName());
+        ch.setWriterName(uv.getLoginUserName());
 
         foodRepository.addnewfoodrecipe(ch);
         System.out.println("메뉴추가가 완료되었습니다!");
@@ -202,6 +204,7 @@ public class Foodview {
         kr.setFoodname(foodname);
         kr.setMaterial(material);
         kr.setRecipe(recipe);
+        kr.setWriterName(uv.getLoginUserName());
         foodRepository.addnewfoodrecipe(kr);
 
         System.out.println("메뉴추가가 완료되었습니다!");

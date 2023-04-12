@@ -10,8 +10,7 @@ public class Chinafood extends Food {
     @Override
     public String toString() {
         return "Chinafood{" +
-                "username='" + username + '\'' +
-                ", foodname='" + foodname + '\'' +
+                "foodname='" + foodname + '\'' +
                 ", material=" + material +
                 ", recipe='" + recipe + '\'' +
                 ", Category='" + Category + '\'' +

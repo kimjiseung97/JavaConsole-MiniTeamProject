@@ -10,8 +10,7 @@ public class UserView {
     static Scanner sc = new Scanner(System.in);
     private static Repository rt;
     public static ArrayList<UserData> memberList;
-
-    private static UserData currentLoginUserData;
+    public static UserData currentLoginUserData;
     static {
         rt = new Repository();
         memberList = new ArrayList<>(
@@ -153,6 +152,7 @@ public class UserView {
 
     // 로그인한 유저 이름 얻기
     public String getLoginUserName() {
-        return currentLoginUserData.userName;
+        String userName = currentLoginUserData.userName;
+        return userName;
     }
 }

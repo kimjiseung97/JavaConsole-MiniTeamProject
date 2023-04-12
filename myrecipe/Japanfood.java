@@ -6,11 +6,11 @@ public class Japanfood extends Food {
     }
 
 
+
     @Override
     public String toString() {
         return "Japanfood{" +
-                "username='" + username + '\'' +
-                ", foodname='" + foodname + '\'' +
+                "foodname='" + foodname + '\'' +
                 ", material=" + material +
                 ", recipe='" + recipe + '\'' +
                 ", Category='" + Category + '\'' +
