@@ -9,5 +9,4 @@ public class Foodrecipe {
         ArrayList<Food> recipeList = recipe;
     }
 
-
 }
