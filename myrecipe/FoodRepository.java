@@ -66,9 +66,10 @@ public class FoodRepository extends Food {
             }
         }
     }
+
     private static int gettargetIndexnum(String foodname) {
         for (Food data : FoodRecipeList) {
-            if(data.getFoodname().equals(foodname)){
+            if (data.getFoodname().equals(foodname)) {
                 return FoodRecipeList.indexOf(data);
             }
         }
@@ -76,35 +77,23 @@ public class FoodRepository extends Food {
     }
 
     // 레시피를 삭제하는 함수
-    public static void removeRecipe(String foodname) {
-        int num = gettargetIndexnum(foodname);
+    public static void removeRecipe(String removeFoodname) {
+        int num = gettargetIndexnum(removeFoodname);
         for (Food data : FoodRecipeList) {
-            if(data.getFoodname().equals(foodname)){
+            if (data.getFoodname().equals(removeFoodname)) {
                 FoodRecipeList.remove(num);
-                System.out.println(foodname + "삭제 되었습니다.");
+                System.out.println(removeFoodname + "삭제 되었습니다.");
                 return;
             }
         }
-        System.out.println(foodname + "찾지 못하였습니다.");
+        System.out.println(removeFoodname + "찾지 못하였습니다.");
     }
-            /*if (FoodRecipeList.contains(foodname)) {
-                System.out.println("[ "+foodname+" ] 레시피가 삭제되었습니다.");
-                FoodRecipeList.remove(num);
 
-            } else {
-                System.out.println("다시 입력해주세요.");
-                FoodRecipeList.remove(num);
-            }*/
+    public void modifyRecipe(String modifyFoodname) {
 
-//        while (true) {
-//            if (FoodRecipeList.equals(foodname)) {
-//                String a = String.valueOf(FoodRecipeList.equals(foodname));
-//                System.out.println("[ "+foodname+" ] 레시피가 삭제되었습니다.");
-//                FoodRecipeList.remove(a);
-//                break;
-//            } else {
-//                System.out.println("다시 입력해주세요.");
-//            }
-//        }
+
+
     }
+
+}
 
