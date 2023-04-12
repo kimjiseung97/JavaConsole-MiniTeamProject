@@ -60,5 +60,15 @@ public class Food {
         this.writerName = writerName;
     }
 
+    @Override
+    public String toString() {
+        return "Food{" +
+                "foodname='" + foodname + '\'' +
+                ", material=" + material +
+                ", recipe='" + recipe + '\'' +
+                ", Category='" + Category + '\'' +
+                ", writerName='" + writerName + '\'' +
+                '}';
+    }
 }
 
