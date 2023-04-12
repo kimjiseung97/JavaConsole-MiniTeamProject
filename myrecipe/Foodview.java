@@ -1,5 +1,7 @@
 package myrecipe;
 
+import user.UserView;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,8 +12,14 @@ public class Foodview {
 
     private static FoodRepository foodRepository;
 
+    private static UserView uv;
+
+    private static UserView userView;
+
     static {
         foodRepository = new FoodRepository();
+        uv = new UserView();
+        userView = new UserView();
     }
     public void selectmenu(){
         showmenu();
@@ -167,6 +175,7 @@ public class Foodview {
         ch.setFoodname(foodname);
         ch.setMaterial(material);
         ch.setRecipe(recipe);
+        ch.setWriterName(userView.getLoginUserName());
 
         foodRepository.addnewfoodrecipe(ch);
         System.out.println("메뉴추가가 완료되었습니다!");
@@ -193,7 +202,6 @@ public class Foodview {
         kr.setFoodname(foodname);
         kr.setMaterial(material);
         kr.setRecipe(recipe);
-
         foodRepository.addnewfoodrecipe(kr);
 
         System.out.println("메뉴추가가 완료되었습니다!");

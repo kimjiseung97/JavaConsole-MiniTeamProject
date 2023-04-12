@@ -2,15 +2,25 @@ package user;
 
 import myrecipe.Foodview;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class UserView {
     static Scanner sc = new Scanner(System.in);
     private static Repository rt;
-    private static Map<String, UserData> memberList = new HashMap<>();
-    private static UserData userData;
+    public static ArrayList<UserData> memberList;
+
+    private static UserData currentLoginUserData;
     static {
         rt = new Repository();
+        memberList = new ArrayList<>(
+                List.of(
+                        new UserData("abcd","1234","홍길동"),
+                        new UserData("bbbb","1234","이순신"),
+                        new UserData("cccc","1234","강감찬")
+                )
+        );
     }
 
     // 처음 초기화면
@@ -49,12 +59,17 @@ public class UserView {
         while (true){
             System.out.print("아이디 : ");
             String inputId = sc.nextLine();
-            if (memberList.containsKey(inputId)){   // 아이디 값이 존재하는지 존재하면 true
-                //userData = memberList.get(inputId); // memberList배열안에 imputId의 값을 리턴해서 userData에 넣어줌 (쓸모없는 기능)
+            if (iscontainId(inputId)){   // 아이디 값이 존재하는지 존재하면 true
+
+                int indexNum = 0;
+                indexNum = gettargetIndexnum(inputId);
+
                 System.out.print("비밀번호 : ");
                 String inputPwd = sc.nextLine();
-                if (userData.getUserPassword().equals(inputPwd)){
+                if (iscotianpw(inputPwd)){
                     System.out.println("@@@@ 로그인 성공! @@@@");
+//                  System.out.println(indexNum);
+                    System.out.println(memberList.get(indexNum).getUserName() + "님 환영합니다");
                     foodview.selectmenu();
                     break;
                 }else {
@@ -63,7 +78,7 @@ public class UserView {
             }else {
                 System.out.println("@@@@ 아이디가 존재하지 않습니다. @@@@");
             }
-            System.out.println(memberList);
+//            System.out.println(memberList);
 //            System.out.println(data);
             break;
         }
@@ -71,33 +86,73 @@ public class UserView {
 
     }
 
-    private static boolean redundancyCheck(String makeId) { // 중복아이디 확인
-        for (UserData value : memberList.values()) {
-            if (value.getUserAccount().equals(makeId)){ // 아이디값이 중복하면 true
+    private static int gettargetIndexnum(String inputPwd) {
+        for (UserData data : memberList) {
+            if(data.getUserAccount().equals(inputPwd)){
+                return memberList.indexOf(data);
+            }
+        }
+        return -1;
+    }
+
+
+    private static boolean iscotianpw(String inputPwd) {
+        for (UserData data : memberList) {
+            if (data.getUserPassword().equals(inputPwd)){
                 return true;
             }
         }
-
         return false;
     }
+
+    private static boolean iscontainId(String inputId) {
+        for (UserData data : memberList) {
+            if(data.getUserAccount().equals(inputId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
     private static void createAccount() {   // 회원가입
 
         System.out.print("아이디를 입력해주세요 : ");
         String makeId = sc.nextLine();
-        if (!redundancyCheck(makeId)){  // 중복확인 아이디가 중복하면 true값을 !true == false로
+        if (!isDuplicate(makeId)){  // 중복확인 아이디가 중복하면 true값을 !true == false로
             System.out.print("비밀번호를 입력해주세요 : ");
             String makePwd = sc.nextLine();
             System.out.print("닉네임을 입력해주세요 : ");
             String makeName = sc.nextLine();
 
-            userData = new UserData(makeId, makePwd, makeName);
-            rt.register(userData);  // 유저를 등록하는 기능 (View에 static UserData userData를 만들어서 쓸모없는 기능)
-            memberList.put(makeId,userData);    // makeId를 중복 안되게 해줌 makeId가 같으면 userData 값에 안넣어줌
-            System.out.println("@@@@ "+userData.getUserName()+"님 환영합니다! @@@@");
+            currentLoginUserData = new UserData(makeId, makePwd, makeName);
+//            rt.register(currentLoginUserData);  // 유저를 등록하는 기능 (View에 static UserData userData를 만들어서 쓸모없는 기능)
+            memberList.add(currentLoginUserData);    // makeId를 중복 안되게 해줌 makeId가 같으면 userData 값에 안넣어줌
+            System.out.println("@@@@ "+currentLoginUserData.getUserName()+"님 가입완료 @@@@");
+//            for (UserData data : memberList) {
+//                System.out.println(data);   //userdata 배열에 잘들어갔는지 확인용 반복문
+//            }
+
         }else {
-            System.out.println("@@@@ 아이디가 존재합니다. @@@@");
+            System.out.println("@@@@ 아이디가 중복됩니다. @@@@");
         }
 
 
+    }
+
+    private static boolean isDuplicate(String makeId) {
+        for (UserData data : memberList) {
+            if(data.getUserAccount().contains(makeId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // 로그인한 유저 이름 얻기
+    public String getLoginUserName() {
+        return currentLoginUserData.userName;
     }
 }

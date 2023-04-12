@@ -1,12 +1,10 @@
 package myrecipe;
 
-import java.util.ArrayList;
-
-
 import java.util.Set;
 
 public class Food {
 
+    public String username;
     public String foodname;
 
     public Set<String> material;
@@ -15,13 +13,17 @@ public class Food {
 
     public String Category;
 
+    public String writerName;
+
     public Food() {
     }
 
-    private Food(String foodname, Set<String> material, String recipe) {
+    public Food(String foodname, Set<String> material, String recipe, String category, String writerName) {
         this.foodname = foodname;
         this.material = material;
         this.recipe = recipe;
+        Category = category;
+        this.writerName = writerName;
     }
 
     public String getFoodname() {
@@ -51,5 +53,14 @@ public class Food {
     public void setCategory(String category) {
         this.Category = category;
     }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
+
 }
 
