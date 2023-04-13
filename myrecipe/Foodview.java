@@ -2,6 +2,7 @@ package myrecipe;
 
 import user.UserView;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,16 +11,18 @@ import static myrecipe.Util.Utility.input;
 
 public class Foodview {
 
-    private static FoodRepository foodRepository;
+    private static final FoodRepository foodRepository;
 
-    private static UserView uv;
+    private static final UserView userView;
 
-    private static UserView userView;
+    private static ArrayList<Food> foodRecipeList;
+
+
 
     static {
         foodRepository = new FoodRepository();
-        uv = new UserView();
         userView = new UserView();
+        foodRecipeList = foodRepository.getFoodRecipeList();
     }
     public void selectmenu(){
         showmenu();
@@ -68,11 +71,11 @@ public class Foodview {
                 case "5":
                     break;
                 case "6":
-                    String removefoodname = input("삭제하고자 하는 레시피의 이름을 입력해주세요");
+                    String removefoodname = input("삭제하고자 하는 음식의 이름을 입력해주세요 : ");
                     foodRepository.RemoveRecipe(removefoodname);
                     break;
                 case "7":
-                    String changefoodname = input("수정하고자 하는 레시피의 이름을 입력해주세요");
+                    String changefoodname = input("수정하고자 하는 음식의 이름을 입력해주세요 : ");
                     foodRepository.ChangeRecipe(changefoodname);
                     break;
                 case"8":
@@ -127,9 +130,10 @@ public class Foodview {
         jp.setFoodname(foodname);
         jp.setMaterial(material);
         jp.setRecipe(recipe);
-        jp.setWriterName(uv.getLoginUserName());
+        jp.setWriterName(userView.getLoginUserName());
 
         foodRepository.addnewfoodrecipe(jp);
+        FoodRepository.saveUserfoodFile();
         System.out.println("메뉴추가가 완료되었습니다!");
     }
 
@@ -154,9 +158,10 @@ public class Foodview {
         we.setFoodname(foodname);
         we.setMaterial(material);
         we.setRecipe(recipe);
-        we.setWriterName(uv.getLoginUserName());
+        we.setWriterName(userView.getLoginUserName());
 
         foodRepository.addnewfoodrecipe(we);
+        FoodRepository.saveUserfoodFile();
         System.out.println("메뉴추가가 완료되었습니다!");
     }
 
@@ -181,9 +186,10 @@ public class Foodview {
         ch.setFoodname(foodname);
         ch.setMaterial(material);
         ch.setRecipe(recipe);
-        ch.setWriterName(uv.getLoginUserName());
+        ch.setWriterName(userView.getLoginUserName());
 
         foodRepository.addnewfoodrecipe(ch);
+        FoodRepository.saveUserfoodFile();
         System.out.println("메뉴추가가 완료되었습니다!");
     }
 
@@ -208,10 +214,11 @@ public class Foodview {
         kr.setFoodname(foodname);
         kr.setMaterial(material);
         kr.setRecipe(recipe);
-        kr.setWriterName(uv.getLoginUserName());
+        kr.setWriterName(userView.getLoginUserName());
         foodRepository.addnewfoodrecipe(kr);
-
+        FoodRepository.saveUserfoodFile();
         System.out.println("메뉴추가가 완료되었습니다!");
 
     }
+
 }

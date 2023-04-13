@@ -1,8 +1,9 @@
 package myrecipe;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class Food {
+public class Food implements Serializable {
 
     public String foodname;
     public Set<String> material;

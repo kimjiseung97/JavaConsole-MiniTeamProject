@@ -2,21 +2,24 @@ package myrecipe;
 
 import user.UserView;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import static myrecipe.Util.Utility.input;
 
-public class FoodRepository {
+public class FoodRepository implements Serializable {
 
+    private final  static String savePath;
     public static ArrayList<Food> FoodRecipeList;
 
-    public static UserView uv;
+    public static UserView userView;
 
     static {
-        uv = new UserView();
-        FoodRecipeList = new ArrayList<>();
+        userView = new UserView();
+        FoodRecipeList = new ArrayList<Food>();
+        savePath =  "D:/UserData";
     }
 
     public ArrayList<Food> getFoodRecipeList() {
@@ -79,10 +82,10 @@ public class FoodRepository {
 
 
     public void RemoveRecipe(String removefoodname) {
-
+        int num = gettargetIndexnum(removefoodname);
         for (Food food : FoodRecipeList) {
             if(food.getFoodname().equals(removefoodname)){
-                FoodRecipeList.remove(food);
+                FoodRecipeList.remove(num);
                 System.out.println(food.getFoodname()+"가 삭제되었습니다.");
                 return;
             }
@@ -94,7 +97,7 @@ public class FoodRepository {
         int num = gettargetIndexnum(change);
         for (Food food : FoodRecipeList) {
             if(food.getFoodname().equals(change)){
-                if (food.Category=="kr") {
+                if (food.Category.equals("kr")) {
                     String foodname = input("음식이름 : ");
                     Set<String> material = new HashSet<>();
                     while(true){
@@ -109,11 +112,11 @@ public class FoodRepository {
                     fd.setFoodname(foodname);
                     fd.setMaterial(material);
                     fd.setRecipe(recipe);
-                    fd.setWriterName(uv.getLoginUserName());
+                    fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     return;
-                }else if(food.Category=="ch"){
+                }else if(food.Category.equals("ch")){
                     String foodname = input("음식이름 : ");
                     Set<String> material = new HashSet<>();
                     while(true){
@@ -128,11 +131,11 @@ public class FoodRepository {
                     fd.setFoodname(foodname);
                     fd.setMaterial(material);
                     fd.setRecipe(recipe);
-                    fd.setWriterName(uv.getLoginUserName());
+                    fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     return;
-                }else if(food.Category=="we"){
+                }else if(food.Category.equals("we")){
                     String foodname = input("음식이름 : ");
                     Set<String> material = new HashSet<>();
                     while(true){
@@ -147,11 +150,11 @@ public class FoodRepository {
                     fd.setFoodname(foodname);
                     fd.setMaterial(material);
                     fd.setRecipe(recipe);
-                    fd.setWriterName(uv.getLoginUserName());
+                    fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     return;
-                }else if(food.Category=="jp"){
+                }else if(food.Category.equals("jp")){
                     String foodname = input("음식이름 : ");
                     Set<String> material = new HashSet<>();
                     while(true){
@@ -166,7 +169,7 @@ public class FoodRepository {
                     fd.setFoodname(foodname);
                     fd.setMaterial(material);
                     fd.setRecipe(recipe);
-                    fd.setWriterName(uv.getLoginUserName());
+                    fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     return;
@@ -198,6 +201,42 @@ public class FoodRepository {
             }
         }
         System.out.println(foodname + "찾지 못하였습니다.");
+    }
+
+
+    public static void saveUserfoodFile(){
+
+        File fileInfo = new File("D:/UserData");
+        if(!fileInfo.exists())fileInfo.mkdir();
+        try (FileOutputStream fos = new FileOutputStream(savePath+"/userfoodData.sav")){
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(FoodRecipeList);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //세이브파일 로드함수
+    public static void loadUserfoodDataFile(){
+        try (FileInputStream fis
+                     = new FileInputStream(
+                savePath+"/userfoodData.sav")) {
+
+            // 객체를 불러올 보조스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<Food> object = (ArrayList<Food>) ois.readObject();
+            FoodRecipeList = object;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

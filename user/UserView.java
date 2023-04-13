@@ -2,22 +2,29 @@ package user;
 
 import myrecipe.Foodview;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class UserView {
+public class UserView implements Serializable {
     static Scanner sc = new Scanner(System.in);
+    //리파지토리클래스 함수 사용하기위해서 객체배열 초기화
     private static Repository rt;
+
+    //유저데이터 객체배열
     public static ArrayList<UserData> memberList;
+    //현재 로그인한 유저데이터객체
     public static UserData currentLoginUserData;
+
+    //세이브 경로
+    private final  static String savePath;
+
     static {
         rt = new Repository();
-        memberList = new ArrayList<>(
-                List.of(
-                        new UserData("admin","7777","admin")
-                )
-        );
+        memberList = new ArrayList<>();
+        savePath = "D:/UserData";
+        currentLoginUserData = new UserData();
     }
 
     // 처음 초기화면
@@ -51,6 +58,7 @@ public class UserView {
     }
 
     private static void UserLogin() {
+        loadUserDataFile();
         Foodview foodview = new Foodview();
         // 로그인
         while (true){
@@ -63,10 +71,11 @@ public class UserView {
 
                 System.out.print("비밀번호 : ");
                 String inputPwd = sc.nextLine();
-                if (iscotianpw(inputPwd)){
+                if (iscontaianpw(inputPwd)){
                     System.out.println("@@@@ 로그인 성공! @@@@");
 //                  System.out.println(indexNum);
                     System.out.println(memberList.get(indexNum).getUserName() + "님 환영합니다");
+                    currentLoginUserData = new UserData("inputId","inputPwd",memberList.get(indexNum).getUserName());
                     foodview.selectmenu();
                     break;
                 }else {
@@ -93,7 +102,7 @@ public class UserView {
     }
 
 
-    private static boolean iscotianpw(String inputPwd) {
+    private static boolean iscontaianpw(String inputPwd) {
         for (UserData data : memberList) {
             if (data.getUserPassword().equals(inputPwd)){
                 return true;
@@ -127,6 +136,7 @@ public class UserView {
             currentLoginUserData = new UserData(makeId, makePwd, makeName);
 //            rt.register(currentLoginUserData);  // 유저를 등록하는 기능 (View에 static UserData userData를 만들어서 쓸모없는 기능)
             memberList.add(currentLoginUserData);    // makeId를 중복 안되게 해줌 makeId가 같으면 userData 값에 안넣어줌
+            saveUserDataFile();
             System.out.println("@@@@ "+currentLoginUserData.getUserName()+"님 가입완료 @@@@");
 //            for (UserData data : memberList) {
 //                System.out.println(data);   //userdata 배열에 잘들어갔는지 확인용 반복문
@@ -150,8 +160,46 @@ public class UserView {
 
     // 로그인한 유저 이름 얻기
     public String getLoginUserName() {
-        String userName = currentLoginUserData.userName;
+        String userName = currentLoginUserData.getUserName();
         return userName;
+    }
+
+
+
+    //로그인유저 세이브파일저장
+    public static void saveUserDataFile(){
+
+        File fileInfo = new File("D:/UserData");
+        if(!fileInfo.exists())fileInfo.mkdir();
+        try (FileOutputStream fos = new FileOutputStream(savePath+"/userData.sav")){
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(memberList);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //세이브파일 로드함수
+    public static void loadUserDataFile(){
+        try (FileInputStream fis
+                     = new FileInputStream(
+                savePath+"/userData.sav")) {
+
+            // 객체를 불러올 보조스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            List<UserData> object = (List<UserData>) ois.readObject();
+            memberList = (ArrayList<UserData>) object;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
