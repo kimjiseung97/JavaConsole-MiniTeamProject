@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static myrecipe.Util.Utility.input;
 
@@ -20,6 +21,10 @@ public class FoodRepository implements Serializable {
         userView = new UserView();
         FoodRecipeList = new ArrayList<Food>();
         savePath =  "D:/UserData";
+    }
+
+    private static boolean test(Food food) {
+        return food.getWriterName().equals(userView.getLoginUserName());
     }
 
     public ArrayList<Food> getFoodRecipeList() {
@@ -50,6 +55,7 @@ public class FoodRepository implements Serializable {
 
     //레시피 목록이 비었는지 확인하는 함수
     public boolean isempy() {
+        loadUserfoodDataFile();
         if(FoodRecipeList.size()==0){
             return true;
         }else{
@@ -75,28 +81,29 @@ public class FoodRepository implements Serializable {
             if(food.Category.equals(findCategory)){
                 System.out.println(food);
             }
-            return;
         }
         System.out.println(findCategory+"카테고리 음식을 찾지 못했습니다.");
     }
 
 
     public void RemoveRecipe(String removefoodname) {
-        int num = gettargetIndexnum(removefoodname);
         for (Food food : FoodRecipeList) {
-            if(food.getFoodname().equals(removefoodname)){
-                FoodRecipeList.remove(num);
-                System.out.println(food.getFoodname()+"가 삭제되었습니다.");
-                return;
+            if(food.getFoodname().equals(removefoodname)&&food.getWriterName().equals(userView.getLoginUserName())){
+                    int targetIndexnum = gettargetIndexnum(removefoodname);
+                    FoodRecipeList.remove(targetIndexnum);
+                    System.out.println(food.getFoodname()+"가 삭제되었습니다.");
+                    //삭제한뒤에 세이브파일 저장 변경내용을 적용해야하기 때문에
+                    saveUserfoodFile();
+                    return;
             }
         }
-        System.out.println(removefoodname+"를 찾을수 없습니다.");
+        System.out.println(removefoodname+"레시피는 \t" + userView.getLoginUserName()+"님이 작성한 글이 아니기때문에 삭제할 수없습니다");
     }
 
-    public void ChangeRecipe(String change) {
-        int num = gettargetIndexnum(change);
+    public void ChangeRecipe(String modifyfoodname) {
         for (Food food : FoodRecipeList) {
-            if(food.getFoodname().equals(change)){
+            if(food.getFoodname().equals(modifyfoodname) && food.getWriterName().equals(userView.getLoginUserName())){
+                int num = gettargetIndexnum(modifyfoodname);
                 if (food.Category.equals("kr")) {
                     String foodname = input("음식이름 : ");
                     Set<String> material = new HashSet<>();
@@ -177,7 +184,7 @@ public class FoodRepository implements Serializable {
             }
 
         }
-        System.out.println("레시피가 존재하지 않습니다 다시입력해주세요!");
+        System.out.println(userView.getLoginUserName()+"\t님이 작성한 레시피가 존재하지 않습니다 다시입력해주세요!");
     }
 
 
@@ -191,19 +198,21 @@ public class FoodRepository implements Serializable {
     }
 
 
-    public static void removeRecipe(String foodname) {
-        int num = gettargetIndexnum(foodname);
-        for (Food data : FoodRecipeList) {
-            if(data.getFoodname().equals(foodname)){
-                FoodRecipeList.remove(num);
-                System.out.println(foodname + "삭제 되었습니다.");
-                return;
-            }
-        }
-        System.out.println(foodname + "찾지 못하였습니다.");
-    }
+
+//    public static void removeRecipe(String foodname) {
+//        int num = gettargetIndexnum(foodname);
+//        for (Food data : FoodRecipeList) {
+//            if(data.getFoodname().equals(foodname)){
+//                FoodRecipeList.remove(num);
+//                System.out.println(foodname + "삭제 되었습니다.");
+//                return;
+//            }
+//        }
+//        System.out.println(foodname + "찾지 못하였습니다.");
+//    }
 
 
+    //변경된 파일들을 저장하는 함수 객체배열을 sav파일 형식으로 저장한다.
     public static void saveUserfoodFile(){
 
         File fileInfo = new File("D:/UserData");
@@ -218,8 +227,16 @@ public class FoodRepository implements Serializable {
         }
     }
 
+    public void SearchRecipe(String search) {
+        FoodRecipeList.stream()
+                .filter(t -> t.getFoodname().equalsIgnoreCase(search))
+                .collect(Collectors.toList())
+                .forEach(t -> System.out.println(t));
 
-    //세이브파일 로드함수
+    }
+
+
+    //세이브파일 로드함수 sav파일을 객체배열로 로드해서 화면에 뿌려줍니다.
     public static void loadUserfoodDataFile(){
         try (FileInputStream fis
                      = new FileInputStream(

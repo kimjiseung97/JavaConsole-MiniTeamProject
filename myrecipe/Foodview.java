@@ -22,7 +22,6 @@ public class Foodview {
     static {
         foodRepository = new FoodRepository();
         userView = new UserView();
-        foodRecipeList = foodRepository.getFoodRecipeList();
     }
     public void selectmenu(){
         showmenu();
@@ -56,12 +55,13 @@ public class Foodview {
                     }
                     break;
                 case "3":
-                    //재료가 포함된 음식찾기
+                    //입력한 재료가 포함이 되어있으면 음식리스트를 리턴하는 함수
                     String findmaterial = input("찾고자하는 음식에 들어가는 재료를 입력해주세요 : ");
                     foodRepository.findbymaterial(findmaterial);
                     break;
                 case "4":
-                    String findCategory = input("찾고자하는 음식 카테고리를 입력해주세요 : [한식 : kr/ 중식 : ch/ 일식 : jp/ 양식 : we]");
+                    String findCategory = input("찾고자하는 음식 카테고리를 입력해주세요 : [한식 : kr/ 중식 : ch/ 일식 : jp/ 양식 : we] : ");
+                    //음식 카테고리로 리스트를 반환하는 함수
                     if(findCategory.equals("kr")||findCategory.equals("ch")||findCategory.equals("jp")||findCategory.equals("we")){
                         foodRepository.findbyCategory(findCategory);
                     }else{
@@ -69,14 +69,17 @@ public class Foodview {
                     }
                     break;
                 case "5":
+                    String findfoodname = input("찾고자하는 음식의 이름을 입력해주세요 : ");
+                    //이름으로 음식을 찾는 함수
+                    foodRepository.SearchRecipe(findfoodname);
                     break;
                 case "6":
                     String removefoodname = input("삭제하고자 하는 음식의 이름을 입력해주세요 : ");
                     foodRepository.RemoveRecipe(removefoodname);
                     break;
                 case "7":
-                    String changefoodname = input("수정하고자 하는 음식의 이름을 입력해주세요 : ");
-                    foodRepository.ChangeRecipe(changefoodname);
+                    String modifyfoodname = input("수정하고자 하는 음식의 이름을 입력해주세요 : ");
+                    foodRepository.ChangeRecipe(modifyfoodname);
                     break;
                 case"8":
                     System.out.println("종료합니다!");
