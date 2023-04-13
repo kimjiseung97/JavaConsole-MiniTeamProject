@@ -67,13 +67,12 @@ public class FoodRepository implements Serializable {
     public void findbymaterial(String findmaterial) {
 
         for (Food food : FoodRecipeList) {
-            if (food.material.contains(findmaterial)){
+            if (food.material.contains(findmaterial)) {
                 System.out.println(food);
                 return;
-            }else{
-                System.out.println(findmaterial+"이 들어가는 음식을 찾지못했습니다.");
             }
         }
+        System.out.println(findmaterial+"이 들어가는 음식을 찾지못했습니다.");
     }
 
     public void findbyCategory(String findCategory) {
@@ -122,6 +121,7 @@ public class FoodRepository implements Serializable {
                     fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
+                    saveUserfoodFile();
                     return;
                 }else if(food.Category.equals("ch")){
                     String foodname = input("음식이름 : ");
@@ -141,6 +141,7 @@ public class FoodRepository implements Serializable {
                     fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
+                    saveUserfoodFile();
                     return;
                 }else if(food.Category.equals("we")){
                     String foodname = input("음식이름 : ");
@@ -160,6 +161,7 @@ public class FoodRepository implements Serializable {
                     fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
+                    saveUserfoodFile();
                     return;
                 }else if(food.Category.equals("jp")){
                     String foodname = input("음식이름 : ");
@@ -179,6 +181,7 @@ public class FoodRepository implements Serializable {
                     fd.setWriterName(userView.getLoginUserName());
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
+                    saveUserfoodFile();
                     return;
                 }
             }

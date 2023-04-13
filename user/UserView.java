@@ -50,6 +50,8 @@ public class UserView implements Serializable {
                     System.out.println("@@@@ 종료되었습니다. @@@@");
                     System.exit(0);
                     break;
+                case "4":
+
                 default:
                     System.out.println("번호를 다시 입력해주세요!!");
             }
