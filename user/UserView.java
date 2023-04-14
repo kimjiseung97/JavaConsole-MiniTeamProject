@@ -1,5 +1,7 @@
 package user;
 
+import myrecipe.Food;
+import myrecipe.FoodRepository;
 import myrecipe.Foodview;
 
 import java.io.*;
@@ -7,10 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static myrecipe.FoodRepository.loadUserfoodDataFile;
+import static myrecipe.Util.Utility.input;
+
 public class UserView implements Serializable {
     static Scanner sc = new Scanner(System.in);
     //리파지토리클래스 함수 사용하기위해서 객체배열 초기화
     private static Repository rt;
+
+    private static FoodRepository fr;
+
+    public static  ArrayList<Food> FoodRecipeList;
 
     //유저데이터 객체배열
     public static ArrayList<UserData> memberList;
@@ -20,11 +29,16 @@ public class UserView implements Serializable {
     //세이브 경로
     private final  static String savePath;
 
+    private final static UserData adminUser;
+
+
     static {
         rt = new Repository();
         memberList = new ArrayList<>();
         savePath = "D:/UserData";
         currentLoginUserData = new UserData();
+        adminUser = new UserData("admin","7777","관리자");
+        FoodRecipeList = new ArrayList<>();
     }
 
     // 처음 초기화면
@@ -50,7 +64,8 @@ public class UserView implements Serializable {
                     createAccount();
                     break;
                 case "3":
-
+                    loginadmin();
+                    break;
                 case "4":
                     // 종료
                     System.out.println("--------------프로그램을 종료합니다------------");
@@ -61,6 +76,67 @@ public class UserView implements Serializable {
             }
         }
 
+    }
+
+
+    private static void loginadmin() {
+        loadUserfoodDataFile();
+        System.out.println("----------------관리자 로그인 화면------------------");
+        String adminId = input("관리자 아이디를 입력하세요 : ");
+        if(adminUser.getUserAccount().equals(adminId)){
+            String adminPw = input("관리자 비밀번호를 입력하세요 : ");
+            if(adminUser.getUserPassword().equals(adminPw)){
+                System.out.println("로그인 성공");
+                System.out.println(adminUser.getUserName() + "님 어서오십시오");
+                amdinmenuview();
+            }
+        }else{
+            System.out.println("올바르지않은 아이디입니다");
+        }
+    }
+
+    private static void amdinmenuview() {
+        System.out.println("-----관리자 전용 메뉴------");
+        System.out.println("# 1 : 전체 유저정보 확인");
+        System.out.println("# 2 : 전체 레시피 리스트 확인");
+        System.out.println("# 3 : 레시피 일괄삭제하기");
+        System.out.println("# 4 : 유저정보 일괄삭제");
+        System.out.println("# 5 : 로그아웃");
+        String selectNum = input(">>");
+        switch (selectNum){
+            case "1":
+                if(!memberList.isEmpty()){
+                    for (UserData userData : memberList) {
+                        System.out.println(userData);
+                    }
+                }else{
+                    System.out.println("저장된 유저정보가 없습니다 회원가입을 해주세요");
+                }
+                amdinmenuview();
+            case"2":
+                loadUserfoodDataFile();
+                if(!FoodRecipeList.isEmpty()){
+                    for (int i = 0; i < FoodRecipeList.size(); i++) {
+                        System.out.println(FoodRecipeList);
+                    }
+                }else{
+                    System.out.println("저장된 레시피가 없습니다");
+                }
+                amdinmenuview();
+            case "3":
+                break;
+            case"4":
+                break;
+            case "5":
+                System.out.println("정말 로그아웃 하시겠습니까?");
+                String select = input("[y/n] : ");
+                if(select.toLowerCase().charAt(0) == 'y'){
+                    System.out.println("로그아웃합니다");
+                    start();
+                }else if(select.toLowerCase().charAt(0) == 'n'){
+                    amdinmenuview();
+                }
+        }
     }
 
     private static void UserLogin() {
@@ -78,7 +154,7 @@ public class UserView implements Serializable {
                 System.out.print("비밀번호 : ");
                 String inputPwd = sc.nextLine();
                 if (iscontaianpw(inputPwd)){
-                    System.out.println("@@@@ 로그인 성공! @@@@");
+                    System.out.println("---------- 로그인 성공! ------------");
 //                  System.out.println(indexNum);
                     System.out.println(memberList.get(indexNum).getUserName() + "님 환영합니다");
                     currentLoginUserData = new UserData("inputId","inputPwd",memberList.get(indexNum).getUserName());
@@ -207,6 +283,8 @@ public class UserView implements Serializable {
             e.printStackTrace();
         }
     }
+
+
 
 
 }

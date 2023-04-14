@@ -20,7 +20,7 @@ public class FoodRepository implements Serializable {
 
     static {
         userView = new UserView();
-        FoodRecipeList = new ArrayList<Food>();
+        FoodRecipeList = new ArrayList<>();
         savePath =  "D:/UserData";
     }
 
