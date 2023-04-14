@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static myrecipe.Util.Utility.input;
+import static user.UserView.start;
 
 
 public class Foodview {
@@ -38,7 +39,8 @@ public class Foodview {
             System.out.println("5. 음식 이름으로 검색하기");
             System.out.println("6. 레시피 삭제하기");
             System.out.println("7. 레시피 수정하기");
-            System.out.println("8 종료하기");
+            System.out.println("8. 로그아웃");
+            System.out.println("9. 종료하기");
             System.out.println("-------------------------------------------");
             String menuNum = input(">>");
 
@@ -89,7 +91,10 @@ public class Foodview {
                     }
                     foodRepository.ChangeRecipe(modifyfoodname);
                     break;
-                case"8":
+                case "8":
+                    System.out.println("로그아웃 되셨습니다.");
+                    start();
+                case"9":
                     System.out.println("종료합니다!");
                     System.exit(0);
                 default:
