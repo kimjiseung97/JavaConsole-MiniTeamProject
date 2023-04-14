@@ -42,10 +42,10 @@ public class UserData implements Serializable {
 
     @Override
     public String toString() {
-        return "UserData{" +
-                "userAccount='" + userAccount + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userName='" + userName + '\'' +
-                '}';
+        return "유저 정보[" +
+                "계정='" + userAccount + '\'' +
+                ", 비밀번호='" + userPassword + '\'' +
+                ", 닉네임='" + userName + '\'' +
+                ']';
     }
 }

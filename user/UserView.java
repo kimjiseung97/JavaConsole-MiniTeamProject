@@ -1,16 +1,25 @@
 package user;
 
+import myrecipe.Food;
+import myrecipe.FoodRepository;
 import myrecipe.Foodview;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import static myrecipe.Util.Utility.input;
 
 public class UserView implements Serializable {
     static Scanner sc = new Scanner(System.in);
     //리파지토리클래스 함수 사용하기위해서 객체배열 초기화
     private static Repository rt;
+
+    private static FoodRepository fr;
+
+    private static  ArrayList<Food> FoodRecipeList;
 
     //유저데이터 객체배열
     public static ArrayList<UserData> memberList;
@@ -20,11 +29,16 @@ public class UserView implements Serializable {
     //세이브 경로
     private final  static String savePath;
 
+    private final static UserData adminUser;
+
+
     static {
-        rt = new Repository();
         memberList = new ArrayList<>();
         savePath = "D:/UserData";
         currentLoginUserData = new UserData();
+        adminUser = new UserData("admin","7777","관리자");
+        FoodRecipeList = new ArrayList<>();
+        fr = new FoodRepository();
     }
 
     // 처음 초기화면
@@ -50,7 +64,8 @@ public class UserView implements Serializable {
                     createAccount();
                     break;
                 case "3":
-
+                    loginadmin();
+                    break;
                 case "4":
                     // 종료
                     System.out.println("--------------프로그램을 종료합니다------------");
@@ -61,6 +76,83 @@ public class UserView implements Serializable {
             }
         }
 
+    }
+
+
+    private static void loginadmin() {
+
+        System.out.println("----------------관리자 로그인 화면------------------");
+        String adminId = input("관리자 아이디를 입력하세요 : ");
+        if(adminUser.getUserAccount().equals(adminId)){
+            String adminPw = input("관리자 비밀번호를 입력하세요 : ");
+            if(adminUser.getUserPassword().equals(adminPw)){
+                System.out.println("로그인 성공");
+                System.out.println(adminUser.getUserName() + "님 어서오십시오");
+                amdinmenuview();
+            }
+        }else{
+            System.out.println("올바르지않은 아이디입니다");
+        }
+    }
+
+    private static void amdinmenuview() {
+        System.out.println("-----관리자 전용 메뉴------");
+        System.out.println("# 1 : 전체 유저정보 확인");
+        System.out.println("# 2 : 전체 레시피 리스트 확인");
+        System.out.println("# 3 : 레시피 일괄삭제하기");
+        System.out.println("# 4 : 유저정보 일괄삭제");
+        System.out.println("# 5 : 로그아웃");
+        System.out.println("-------------------------");
+        String selectNum = input(">>");
+        switch (selectNum){
+            case "1":
+                if(!memberList.isEmpty()){
+                    System.out.println("---------현재 가입된 전체 유저리스트-------------");
+                    for (UserData userData : memberList) {
+                        System.out.println(userData);
+                    }
+                    System.out.println("---------------------------------------------");
+                    input("엔터를 눌러 계속...........");
+                }else{
+                    System.out.println("저장된 유저정보가 없습니다 회원가입을 해주세요");
+                    input("엔터를 눌러 계속...........");
+                }
+                amdinmenuview();
+            case"2":
+                loadUserfoodDataFile();
+                if(!FoodRecipeList.isEmpty()){
+                    List<Food> foodList = FoodRecipeList.stream().collect(Collectors.toUnmodifiableList());
+                    for (Food food : foodList) {
+                        System.out.println("["+food.getFoodname() +"/"+ food.getWriterName()+ "/"+food.getCategory()+"]");
+                    }
+                }else{
+                    System.out.println("저장된 레시피가 없습니다");
+                }
+                input("엔터를 눌러 계속...........");
+                amdinmenuview();
+            case "3":
+                FoodRecipeList.clear();
+                saveUserfoodFile();
+                System.out.println("레시피 일괄삭제 완료......");
+                input("엔터를 눌러 계속...........");
+                amdinmenuview();
+            case"4":
+                memberList.clear();
+                saveUserDataFile();
+                System.out.println("유저정보 일괄삭제 완료.........");
+                input("엔터를 눌러 계속...........");
+                amdinmenuview();
+            case "5":
+                System.out.println("정말 로그아웃 하시겠습니까?");
+                String select = input("[y/n] : ");
+                if(select.toLowerCase().charAt(0) == 'y'){
+                    System.out.println("로그아웃합니다");
+                    start();
+                }else if(select.toLowerCase().charAt(0) == 'n'){
+                    System.out.println("로그아웃 하지않습니다.");
+                    amdinmenuview();
+                }
+        }
     }
 
     private static void UserLogin() {
@@ -78,7 +170,7 @@ public class UserView implements Serializable {
                 System.out.print("비밀번호 : ");
                 String inputPwd = sc.nextLine();
                 if (iscontaianpw(inputPwd)){
-                    System.out.println("@@@@ 로그인 성공! @@@@");
+                    System.out.println("---------- 로그인 성공! ------------");
 //                  System.out.println(indexNum);
                     System.out.println(memberList.get(indexNum).getUserName() + "님 환영합니다");
                     currentLoginUserData = new UserData("inputId","inputPwd",memberList.get(indexNum).getUserName());
@@ -208,6 +300,40 @@ public class UserView implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public static void loadUserfoodDataFile(){
+        try (FileInputStream fis
+                     = new FileInputStream(
+                savePath+"/userfoodData.sav")) {
+
+            // 객체를 불러올 보조스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<Food> object = (ArrayList<Food>) ois.readObject();
+            FoodRecipeList = object;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void saveUserfoodFile(){
+
+        File fileInfo = new File("D:/UserData");
+        if(!fileInfo.exists())fileInfo.mkdir();
+        try (FileOutputStream fos = new FileOutputStream(savePath+"/userfoodData.sav")){
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(FoodRecipeList);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }
