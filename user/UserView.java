@@ -30,12 +30,15 @@ public class UserView implements Serializable {
     // 처음 초기화면
     // 메인 시작
     public static void start() {
+        loadUserDataFile();
         while (true) {
-            System.out.println("***********로그인창 입니다 ************");
-            System.out.println("************번호룰 선택하세요************");
+            System.out.println("------------로그인창 입니다 -------------");
+            System.out.println("-----------번호를 선택하세요-------------");
             System.out.println("# 1. 로그인");
             System.out.println("# 2. 회원가입");
-            System.out.println("# 3. 종료하기");
+            System.out.println("# 3. 관리자 로그인");
+            System.out.println("# 4. 종료하기");
+            System.out.println("----------------------------------------");
             System.out.print(">>");
             String num = sc.nextLine();
 
@@ -46,12 +49,13 @@ public class UserView implements Serializable {
                 case "2":   // 회원가입
                     createAccount();
                     break;
-                case "3":   // 종료
-                    System.out.println("@@@@ 종료되었습니다. @@@@");
+                case "3":
+
+                case "4":
+                    // 종료
+                    System.out.println("--------------프로그램을 종료합니다------------");
                     System.exit(0);
                     break;
-                case "4":
-
                 default:
                     System.out.println("번호를 다시 입력해주세요!!");
             }
@@ -81,10 +85,10 @@ public class UserView implements Serializable {
                     foodview.selectmenu();
                     break;
                 }else {
-                    System.out.println("@@@@ 비밀번호가 틀립니다. @@@@");
+                    System.out.println("-------------- 비밀번호가 틀립니다. ---------------");
                 }
             }else {
-                System.out.println("@@@@ 아이디가 존재하지 않습니다. @@@@");
+                System.out.println("---------------- 아이디가 존재하지 않습니다.--------------");
             }
 //            System.out.println(memberList);
 //            System.out.println(data);
@@ -139,13 +143,13 @@ public class UserView implements Serializable {
 //            rt.register(currentLoginUserData);  // 유저를 등록하는 기능 (View에 static UserData userData를 만들어서 쓸모없는 기능)
             memberList.add(currentLoginUserData);    // makeId를 중복 안되게 해줌 makeId가 같으면 userData 값에 안넣어줌
             saveUserDataFile();
-            System.out.println("@@@@ "+currentLoginUserData.getUserName()+"님 가입완료 @@@@");
+            System.out.println("--------------"+currentLoginUserData.getUserName()+"님 가입완료 -------------");
 //            for (UserData data : memberList) {
 //                System.out.println(data);   //userdata 배열에 잘들어갔는지 확인용 반복문
 //            }
 
         }else {
-            System.out.println("@@@@ 아이디가 중복됩니다. @@@@");
+            System.out.println("-------------- 아이디가 중복됩니다. ----------------");
         }
 
 
