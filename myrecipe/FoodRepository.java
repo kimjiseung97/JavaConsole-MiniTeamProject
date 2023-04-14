@@ -114,7 +114,15 @@ public class FoodRepository implements Serializable {
             if(food.getFoodname().equals(modifyfoodname) && food.getWriterName().equals(userView.getLoginUserName())){
                 int num = gettargetIndexnum(modifyfoodname);
                 if (food.Category.equals("kr")) {
-                    String foodname = input("음식이름 : ");
+                    String foodname;
+                    while (true) {
+                        foodname = input("음식이름 : ");
+                        if(foodname.equals("")){
+                            System.out.println("공백입니다 다시입력해주세요.");
+                            continue;
+                        }
+                        break;
+                    }
                     Set<String> material = new HashSet<>();
                     while(true){
                         System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");
@@ -134,7 +142,15 @@ public class FoodRepository implements Serializable {
                     saveUserfoodFile();
                     return;
                 }else if(food.Category.equals("ch")){
-                    String foodname = input("음식이름 : ");
+                    String foodname;
+                    while (true) {
+                        foodname = input("음식이름 : ");
+                        if(foodname.equals("")){
+                            System.out.println("공백입니다 다시입력해주세요.");
+                            continue;
+                        }
+                        break;
+                    }
                     Set<String> material = new HashSet<>();
                     while(true){
                         System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");
@@ -154,7 +170,15 @@ public class FoodRepository implements Serializable {
                     saveUserfoodFile();
                     return;
                 }else if(food.Category.equals("we")){
-                    String foodname = input("음식이름 : ");
+                    String foodname;
+                    while (true) {
+                        foodname = input("음식이름 : ");
+                        if(foodname.equals("")){
+                            System.out.println("공백입니다 다시입력해주세요.");
+                            continue;
+                        }
+                        break;
+                    }
                     Set<String> material = new HashSet<>();
                     while(true){
                         System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");
@@ -174,7 +198,15 @@ public class FoodRepository implements Serializable {
                     saveUserfoodFile();
                     return;
                 }else if(food.Category.equals("jp")){
-                    String foodname = input("음식이름 : ");
+                    String foodname;
+                    while (true) {
+                        foodname = input("음식이름 : ");
+                        if(foodname.equals("")){
+                            System.out.println("공백입니다 다시입력해주세요.");
+                            continue;
+                        }
+                        break;
+                    }
                     Set<String> material = new HashSet<>();
                     while(true){
                         System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");

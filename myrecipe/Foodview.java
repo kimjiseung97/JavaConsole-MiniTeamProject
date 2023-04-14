@@ -78,7 +78,15 @@ public class Foodview {
                     foodRepository.RemoveRecipe(removefoodname);
                     break;
                 case "7":
-                    String modifyfoodname = input("수정하고자 하는 음식의 이름을 입력해주세요 : ");
+                    String modifyfoodname;
+                    while (true) {
+                        modifyfoodname = input("수정하고자 하는 음식의 이름을 입력해주세요 : ");;
+                        if(modifyfoodname.equals("")){
+                            System.out.println("공백입니다 다시입력해주세요.");
+                            continue;
+                        }
+                        break;
+                    }
                     foodRepository.ChangeRecipe(modifyfoodname);
                     break;
                 case"8":
@@ -115,7 +123,15 @@ public class Foodview {
     private void addjapanfood() {
         //양식 추가하는 메뉴
         //음식이름과 재료 레시피를 입력받고 생성자 호출하는 함수
-        String foodname = input("음식이름 : ");
+        String foodname;
+        while (true) {
+            foodname = input("음식이름 : ");
+            if(foodname.equals("")){
+                System.out.println("공백입니다 다시입력해주세요.");
+                continue;
+            }
+            break;
+        }
         Set<String> material = new HashSet<>();
         while(true){
             System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");
@@ -143,7 +159,15 @@ public class Foodview {
     private void addwesternfood() {
         //양식 추가하는 메뉴
         //음식이름과 재료 레시피를 입력받고 생성자 호출하는 함수
-        String foodname = input("음식이름 : ");
+        String foodname;
+        while (true) {
+            foodname = input("음식이름 : ");
+            if(foodname.equals("")){
+                System.out.println("공백입니다 다시입력해주세요.");
+                continue;
+            }
+            break;
+        }
         Set<String> material = new HashSet<>();
         while(true){
             System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");
@@ -172,7 +196,15 @@ public class Foodview {
     private void addchinafood() {
         //중국음식 추가하는 메뉴
         //음식이름과 재료 레시피를 입력받고 생성자 호출하는 함수
-        String foodname = input("음식이름 : ");
+        String foodname;
+        while (true) {
+            foodname = input("음식이름 : ");
+            if(foodname.equals("")){
+                System.out.println("공백입니다 다시입력해주세요.");
+                continue;
+            }
+            break;
+        }
         Set<String> material = new HashSet<>();
         while(true){
             System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");
@@ -200,7 +232,15 @@ public class Foodview {
     private void addkoreafood() {
         //한국음식 추가하는 메뉴
         //음식이름과 재료 레시피를 입력받고 생성자 호출하는 함수
-        String foodname = input("음식이름 : ");
+        String foodname;
+        while (true) {
+            foodname = input("음식이름 : ");
+            if(foodname.equals("")){
+                System.out.println("공백입니다 다시입력해주세요.");
+                continue;
+            }
+            break;
+        }
         Set<String> material = new HashSet<>();
         while(true){
             System.out.println("음식재료를 입력해주세요! [엔터입력시 종료]");
