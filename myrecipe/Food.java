@@ -1,24 +1,28 @@
 package myrecipe;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class Food {
+public class Food implements Serializable {
 
     public String foodname;
-
     public Set<String> material;
 
     public String recipe;
 
     public String Category;
 
+    public String writerName;
+
     public Food() {
     }
 
-    private Food(String foodname, Set<String> material, String recipe) {
+    public Food(String foodname, Set<String> material, String recipe, String category, String writerName) {
         this.foodname = foodname;
         this.material = material;
         this.recipe = recipe;
+        Category = category;
+        this.writerName = writerName;
     }
 
     public String getFoodname() {
@@ -48,4 +52,28 @@ public class Food {
     public void setCategory(String category) {
         this.Category = category;
     }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
+
+    public String getCategory() {
+        return Category;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "foodname='" + foodname + '\'' +
+                ", material=" + material +
+                ", recipe='" + recipe + '\'' +
+                ", Category='" + Category + '\'' +
+                ", writerName='" + writerName + '\'' +
+                '}';
+    }
 }
+
