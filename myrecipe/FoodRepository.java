@@ -50,9 +50,12 @@ public class FoodRepository implements Serializable {
 
     public void showfoodlist(){
         loadUserfoodDataFile();
+        System.out.println("---------------전체 레시피 리스트------------------");
         for (Food food : FoodRecipeList) {
             System.out.println(food);
         }
+        System.out.println("---------------------------------------------");
+        input("엔터를 눌러 계속...........");
     }
 
     //레시피 목록이 비었는지 확인하는 함수
@@ -75,6 +78,7 @@ public class FoodRepository implements Serializable {
             }
         }
         System.out.println(findmaterial+"이 들어가는 음식을 찾지못했습니다.");
+        input("엔터를 눌러 계속...........");
     }
 
 
@@ -89,11 +93,13 @@ public class FoodRepository implements Serializable {
         }
         if(findfoodListByCategory.isEmpty()) {
             System.out.println(findCategory + "카테고리 이름을 발견하지 못했습니다.");
+            input("엔터를 눌러 계속...........");
         }else{
             for (Food food : findfoodListByCategory) {
                 System.out.println(food);
             }
         }
+        input("엔터를 눌러 계속...........");
     }
 
 
@@ -106,10 +112,12 @@ public class FoodRepository implements Serializable {
                     System.out.println(food.getFoodname()+"가 삭제되었습니다.");
                     //삭제한뒤에 세이브파일 저장 변경내용을 적용해야하기 때문에
                     saveUserfoodFile();
+                    input("엔터를 눌러 계속...........");
                     return;
             }
         }
         System.out.println(removefoodname+"레시피는 \t" + userView.getLoginUserName()+"님이 작성한 글이 아니기때문에 삭제할 수없습니다");
+        input("엔터를 눌러 계속...........");
     }
 
 
@@ -137,6 +145,7 @@ public class FoodRepository implements Serializable {
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     saveUserfoodFile();
+                    input("엔터를 눌러 계속...........");
                     return;
                 }else if(food.Category.equals("ch")){
                     String foodname = input("음식이름 : ");
@@ -157,6 +166,7 @@ public class FoodRepository implements Serializable {
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     saveUserfoodFile();
+                    input("엔터를 눌러 계속...........");
                     return;
                 }else if(food.Category.equals("we")){
                     String foodname = input("음식이름 : ");
@@ -177,6 +187,7 @@ public class FoodRepository implements Serializable {
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     saveUserfoodFile();
+                    input("엔터를 눌러 계속...........");
                     return;
                 }else if(food.Category.equals("jp")){
                     String foodname = input("음식이름 : ");
@@ -197,12 +208,14 @@ public class FoodRepository implements Serializable {
                     FoodRecipeList.set(num, fd);
                     System.out.println("레시피 수정이 완료되었습니다!");
                     saveUserfoodFile();
+                    input("엔터를 눌러 계속...........");
                     return;
                 }
             }
 
         }
         System.out.println(userView.getLoginUserName()+"\t님이 작성한 레시피가 존재하지 않습니다 다시입력해주세요!");
+        input("엔터를 눌러 계속...........");
     }
 
 
@@ -256,6 +269,7 @@ public class FoodRepository implements Serializable {
             }
         }
         System.out.println("찾는 음식이름이 존재하지 않습니다.");
+        input("엔터를 눌러 계속...........");
 
     }
 

@@ -5,12 +5,12 @@ public class Westernfood extends Food {
 
     @Override
     public String toString() {
-        return "Westernfood{" +
-                "foodname='" + foodname + '\'' +
-                ", material=" + material +
-                ", recipe='" + recipe + '\'' +
-                ", Category='" + Category + '\'' +
-                ", writerName='" + writerName + '\'' +
-                '}';
+        return "양식[" +
+                "음식명='" + foodname + '\'' +
+                ", 재료=" + material +
+                ", 조리법='" + recipe + '\'' +
+                ", 카테고리='" + Category + '\'' +
+                ", 작성자='" + writerName + '\'' +
+                ']';
     }
 }

@@ -8,8 +8,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-import static myrecipe.FoodRepository.loadUserfoodDataFile;
 import static myrecipe.Util.Utility.input;
 
 public class UserView implements Serializable {
@@ -19,7 +19,7 @@ public class UserView implements Serializable {
 
     private static FoodRepository fr;
 
-    public static  ArrayList<Food> FoodRecipeList;
+    private static  ArrayList<Food> FoodRecipeList;
 
     //유저데이터 객체배열
     public static ArrayList<UserData> memberList;
@@ -33,12 +33,12 @@ public class UserView implements Serializable {
 
 
     static {
-        rt = new Repository();
         memberList = new ArrayList<>();
         savePath = "D:/UserData";
         currentLoginUserData = new UserData();
         adminUser = new UserData("admin","7777","관리자");
         FoodRecipeList = new ArrayList<>();
+        fr = new FoodRepository();
     }
 
     // 처음 초기화면
@@ -80,7 +80,7 @@ public class UserView implements Serializable {
 
 
     private static void loginadmin() {
-        loadUserfoodDataFile();
+
         System.out.println("----------------관리자 로그인 화면------------------");
         String adminId = input("관리자 아이디를 입력하세요 : ");
         if(adminUser.getUserAccount().equals(adminId)){
@@ -102,25 +102,33 @@ public class UserView implements Serializable {
         System.out.println("# 3 : 레시피 일괄삭제하기");
         System.out.println("# 4 : 유저정보 일괄삭제");
         System.out.println("# 5 : 로그아웃");
+        System.out.println("-------------------------");
         String selectNum = input(">>");
         switch (selectNum){
             case "1":
                 if(!memberList.isEmpty()){
+                    System.out.println("---------현재 가입된 전체 유저리스트-------------");
                     for (UserData userData : memberList) {
                         System.out.println(userData);
                     }
+                    System.out.println("---------------------------------------------");
+                    input("엔터를 눌러 계속...........");
                 }else{
                     System.out.println("저장된 유저정보가 없습니다 회원가입을 해주세요");
+                    input("엔터를 눌러 계속...........");
                 }
                 amdinmenuview();
             case"2":
                 loadUserfoodDataFile();
                 if(!FoodRecipeList.isEmpty()){
-                    for (int i = 0; i < FoodRecipeList.size(); i++) {
-                        System.out.println(FoodRecipeList);
+                    List<Food> foodList = FoodRecipeList.stream().collect(Collectors.toUnmodifiableList());
+                    for (Food food : foodList) {
+                        System.out.println("["+food.getFoodname() +"/"+ food.getWriterName()+ "/"+food.getCategory()+"]");
+                        input("엔터를 눌러 계속...........");
                     }
                 }else{
                     System.out.println("저장된 레시피가 없습니다");
+                    input("엔터를 눌러 계속...........");
                 }
                 amdinmenuview();
             case "3":
@@ -134,6 +142,7 @@ public class UserView implements Serializable {
                     System.out.println("로그아웃합니다");
                     start();
                 }else if(select.toLowerCase().charAt(0) == 'n'){
+                    System.out.println("로그아웃 하지않습니다.");
                     amdinmenuview();
                 }
         }
@@ -283,6 +292,26 @@ public class UserView implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public static void loadUserfoodDataFile(){
+        try (FileInputStream fis
+                     = new FileInputStream(
+                savePath+"/userfoodData.sav")) {
+
+            // 객체를 불러올 보조스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ArrayList<Food> object = (ArrayList<Food>) ois.readObject();
+            FoodRecipeList = object;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
