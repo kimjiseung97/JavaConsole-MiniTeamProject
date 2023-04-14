@@ -77,6 +77,8 @@ public class FoodRepository implements Serializable {
         System.out.println(findmaterial+"이 들어가는 음식을 찾지못했습니다.");
     }
 
+
+    //카테고리로 레시피를 반환받는 함수
     public void findbyCategory(String findCategory) {
         ArrayList<Food> findfoodListByCategory = new ArrayList<>();
 
@@ -95,6 +97,7 @@ public class FoodRepository implements Serializable {
     }
 
 
+    //음식이름으로 레시피 삭제하는 함수
     public void RemoveRecipe(String removefoodname) {
         for (Food food : FoodRecipeList) {
             if(food.getFoodname().equals(removefoodname)&&food.getWriterName().equals(userView.getLoginUserName())){
@@ -109,6 +112,8 @@ public class FoodRepository implements Serializable {
         System.out.println(removefoodname+"레시피는 \t" + userView.getLoginUserName()+"님이 작성한 글이 아니기때문에 삭제할 수없습니다");
     }
 
+
+    //변경하고자 하는 음식이름으로 변경하는함수 카테고리는 그대로 가져감 (추후 수정예정)
     public void ChangeRecipe(String modifyfoodname) {
         for (Food food : FoodRecipeList) {
             if(food.getFoodname().equals(modifyfoodname) && food.getWriterName().equals(userView.getLoginUserName())){
