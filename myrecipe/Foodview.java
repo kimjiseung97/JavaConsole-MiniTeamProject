@@ -34,7 +34,7 @@ public class Foodview {
             System.out.println("1. 레시피 추가 하기");
             System.out.println("2. 레시피 전체 보기");
             System.out.println("3. 특정 음식 요리 검색하기");
-            System.out.println("4. 요리종류별로 보기");
+            System.out.println("4. 요리카테고리별[kr/ch/we/jp] 별로 보기");
             System.out.println("5. 음식 이름으로 검색하기");
             System.out.println("6. 레시피 삭제하기");
             System.out.println("7. 레시피 수정하기");

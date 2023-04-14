@@ -78,13 +78,20 @@ public class FoodRepository implements Serializable {
     }
 
     public void findbyCategory(String findCategory) {
+        ArrayList<Food> findfoodListByCategory = new ArrayList<>();
+
         for (Food food : FoodRecipeList) {
-            if(food.Category.equals(findCategory)){
-                System.out.println(food);
-                return;
+            if (food.getCategory().equals(findCategory)){
+                findfoodListByCategory.add(food);
             }
         }
-        System.out.println(findCategory+"카테고리 음식을 찾지 못했습니다.");
+        if(findfoodListByCategory.isEmpty()) {
+            System.out.println(findCategory + "카테고리 이름을 발견하지 못했습니다.");
+        }else{
+            for (Food food : findfoodListByCategory) {
+                System.out.println(food);
+            }
+        }
     }
 
 
