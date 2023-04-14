@@ -200,7 +200,8 @@ public class UserView implements Serializable {
             memberList = (ArrayList<UserData>) object;
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println("현재 저장된 유저데이터가 없습니다 회원가입을 진행해주세요");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

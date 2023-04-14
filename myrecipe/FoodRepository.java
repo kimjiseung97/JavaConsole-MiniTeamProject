@@ -299,7 +299,7 @@ public class FoodRepository implements Serializable {
             FoodRecipeList = object;
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("현재 저장된 음식 데이터가 존재하지않습니다 데이터를 등록해주세요!");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
