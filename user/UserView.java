@@ -124,17 +124,24 @@ public class UserView implements Serializable {
                     List<Food> foodList = FoodRecipeList.stream().collect(Collectors.toUnmodifiableList());
                     for (Food food : foodList) {
                         System.out.println("["+food.getFoodname() +"/"+ food.getWriterName()+ "/"+food.getCategory()+"]");
-                        input("엔터를 눌러 계속...........");
                     }
                 }else{
                     System.out.println("저장된 레시피가 없습니다");
-                    input("엔터를 눌러 계속...........");
                 }
+                input("엔터를 눌러 계속...........");
                 amdinmenuview();
             case "3":
-                break;
+                FoodRecipeList.clear();
+                saveUserfoodFile();
+                System.out.println("레시피 일괄삭제 완료......");
+                input("엔터를 눌러 계속...........");
+                amdinmenuview();
             case"4":
-                break;
+                memberList.clear();
+                saveUserDataFile();
+                System.out.println("유저정보 일괄삭제 완료.........");
+                input("엔터를 눌러 계속...........");
+                amdinmenuview();
             case "5":
                 System.out.println("정말 로그아웃 하시겠습니까?");
                 String select = input("[y/n] : ");
@@ -311,7 +318,19 @@ public class UserView implements Serializable {
             e.printStackTrace();
         }
     }
+    public static void saveUserfoodFile(){
 
+        File fileInfo = new File("D:/UserData");
+        if(!fileInfo.exists())fileInfo.mkdir();
+        try (FileOutputStream fos = new FileOutputStream(savePath+"/userfoodData.sav")){
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(FoodRecipeList);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

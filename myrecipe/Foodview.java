@@ -52,6 +52,7 @@ public class Foodview {
                         foodRepository.showfoodlist();
                     }else{
                         System.out.println("레시피목록이 없습니다!");
+
                     }
                     break;
                 case "3":
