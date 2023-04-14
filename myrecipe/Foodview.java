@@ -168,6 +168,7 @@ public class Foodview {
         System.out.println("메뉴추가가 완료되었습니다!");
     }
 
+
     private void addchinafood() {
         //중국음식 추가하는 메뉴
         //음식이름과 재료 레시피를 입력받고 생성자 호출하는 함수
