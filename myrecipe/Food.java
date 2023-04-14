@@ -61,6 +61,10 @@ public class Food implements Serializable {
         this.writerName = writerName;
     }
 
+    public String getCategory() {
+        return Category;
+    }
+
     @Override
     public String toString() {
         return "Food{" +

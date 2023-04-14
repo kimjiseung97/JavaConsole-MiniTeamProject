@@ -5,6 +5,7 @@ import user.UserView;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,7 @@ public class FoodRepository implements Serializable {
     }
 
     public void showfoodlist(){
+        loadUserfoodDataFile();
         for (Food food : FoodRecipeList) {
             System.out.println(food);
         }
@@ -79,6 +81,7 @@ public class FoodRepository implements Serializable {
         for (Food food : FoodRecipeList) {
             if(food.Category.equals(findCategory)){
                 System.out.println(food);
+                return;
             }
         }
         System.out.println(findCategory+"카테고리 음식을 찾지 못했습니다.");
@@ -231,10 +234,16 @@ public class FoodRepository implements Serializable {
     }
 
     public void SearchRecipe(String search) {
-        FoodRecipeList.stream()
+        List<Food> foodNameFind = FoodRecipeList.stream()
                 .filter(t -> t.getFoodname().equalsIgnoreCase(search))
-                .collect(Collectors.toList())
-                .forEach(t -> System.out.println(t));
+                .collect(Collectors.toList());
+        for (Food food : foodNameFind) {
+            if(food.getFoodname().equalsIgnoreCase(search)){
+                System.out.println(food);
+                return;
+            }
+        }
+        System.out.println("찾는 음식이름이 존재하지 않습니다.");
 
     }
 
