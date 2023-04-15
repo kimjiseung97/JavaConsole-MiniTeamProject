@@ -89,6 +89,8 @@ public class UserView implements Serializable {
                 System.out.println("로그인 성공");
                 System.out.println(adminUser.getUserName() + "님 어서오십시오");
                 amdinmenuview();
+            }else {
+                System.out.println("비밀번호가 틀렸습니다!");
             }
         }else{
             System.out.println("올바르지않은 아이디입니다");
@@ -118,6 +120,7 @@ public class UserView implements Serializable {
                     input("엔터를 눌러 계속...........");
                 }
                 amdinmenuview();
+                break;
             case"2":
                 loadUserfoodDataFile();
                 if(!FoodRecipeList.isEmpty()){
@@ -130,18 +133,26 @@ public class UserView implements Serializable {
                 }
                 input("엔터를 눌러 계속...........");
                 amdinmenuview();
+                break;
             case "3":
-                FoodRecipeList.clear();
-                saveUserfoodFile();
-                System.out.println("레시피 일괄삭제 완료......");
-                input("엔터를 눌러 계속...........");
+                if(FoodRecipeList.size()!=0) {
+                    FoodRecipeList.clear();
+                    saveUserfoodFile();
+                    System.out.println("레시피 일괄삭제 완료......");
+                    input("엔터를 눌러 계속...........");
+                }else{
+                    System.out.println("저장된 레시피리스트가 없습니다!");
+                    input("엔터를 눌러 계속...........");
+                }
                 amdinmenuview();
+                break;
             case"4":
                 memberList.clear();
                 saveUserDataFile();
                 System.out.println("유저정보 일괄삭제 완료.........");
                 input("엔터를 눌러 계속...........");
                 amdinmenuview();
+                break;
             case "5":
                 System.out.println("정말 로그아웃 하시겠습니까?");
                 String select = input("[y/n] : ");
@@ -151,6 +162,7 @@ public class UserView implements Serializable {
                 }else if(select.toLowerCase().charAt(0) == 'n'){
                     System.out.println("로그아웃 하지않습니다.");
                     amdinmenuview();
+                    break;
                 }
         }
     }
@@ -225,11 +237,23 @@ public class UserView implements Serializable {
 
         System.out.print("아이디를 입력해주세요 : ");
         String makeId = sc.nextLine();
+        if(makeId.equals("")){
+            System.out.println("아이디가공백입니다 아이디를 입력해주세요");
+            return;
+        }
         if (!isDuplicate(makeId)){  // 중복확인 아이디가 중복하면 true값을 !true == false로
             System.out.print("비밀번호를 입력해주세요 : ");
             String makePwd = sc.nextLine();
+            if(makePwd.equals("")){
+                System.out.println("비밀번호가공백입니다 비밀번호를 입력해주세요");
+                return;
+            }
             System.out.print("닉네임을 입력해주세요 : ");
             String makeName = sc.nextLine();
+            if(makeName.equals("")){
+                System.out.println("닉네임이 공백입니다 닉네임을 입력해주세요");
+                return;
+            }
 
             currentLoginUserData = new UserData(makeId, makePwd, makeName);
 //            rt.register(currentLoginUserData);  // 유저를 등록하는 기능 (View에 static UserData userData를 만들어서 쓸모없는 기능)
