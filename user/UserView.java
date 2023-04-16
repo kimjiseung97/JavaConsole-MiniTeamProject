@@ -250,6 +250,12 @@ public class UserView implements Serializable {
             }
             System.out.print("닉네임을 입력해주세요 : ");
             String makeName = sc.nextLine();
+            if(!isDuplicateNickname(makeName)){
+
+            }else {
+                System.out.println("닉네임이 중복됩니다");
+                return;
+            }
             if(makeName.equals("")){
                 System.out.println("닉네임이 공백입니다 닉네임을 입력해주세요");
                 return;
@@ -279,6 +285,15 @@ public class UserView implements Serializable {
         }
         return false;
     }
+    private static boolean isDuplicateNickname(String makename) {
+        for (UserData data : memberList) {
+            if(data.getUserName().contains(makename)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     // 로그인한 유저 이름 얻기
     public String getLoginUserName() {
