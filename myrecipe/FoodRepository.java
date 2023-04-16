@@ -95,11 +95,12 @@ public class FoodRepository implements Serializable {
             System.out.println(findCategory + "카테고리 이름을 발견하지 못했습니다.");
             input("엔터를 눌러 계속...........");
         }else{
+            System.out.println(findCategory + "음식리스트");
             for (Food food : findfoodListByCategory) {
                 System.out.println(food);
             }
+            input("엔터를 눌러 계속...........");
         }
-        input("엔터를 눌러 계속...........");
     }
 
 
@@ -297,6 +298,7 @@ public class FoodRepository implements Serializable {
         for (Food food : foodNameFind) {
             if(food.getFoodname().equalsIgnoreCase(search)){
                 System.out.println(food);
+                input("엔터를 눌러 계속...........");
                 return;
             }
         }

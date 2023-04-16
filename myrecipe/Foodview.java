@@ -93,8 +93,14 @@ public class Foodview {
                     foodRepository.ChangeRecipe(modifyfoodname);
                     break;
                 case "8":
-                    System.out.println("로그아웃 되셨습니다.");
-                    start();
+                    String isLogout = input("정말 로그아웃 하시겠습니까 ? [y/n] : ");
+                    if(isLogout.toLowerCase().charAt(0) == 'y'){
+                        System.out.println("로그아웃 되셨습니다.");
+                        start();
+                    }else{
+                        System.out.println("로그아웃 하지않습니다.");
+                    }
+                    break;
                 case"9":
                     System.out.println("종료합니다!");
                     System.exit(0);
