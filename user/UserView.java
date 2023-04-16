@@ -164,6 +164,9 @@ public class UserView implements Serializable {
                     amdinmenuview();
                     break;
                 }
+            default:
+                System.out.println("올바른 메뉴를입력해주세요!");
+                amdinmenuview();
         }
     }
 
@@ -251,7 +254,7 @@ public class UserView implements Serializable {
             System.out.print("닉네임을 입력해주세요 : ");
             String makeName = sc.nextLine();
             if(!isDuplicateNickname(makeName)){
-
+                System.out.println("사용할 수 있는 닉네임 입니다.");
             }else {
                 System.out.println("닉네임이 중복됩니다");
                 return;
